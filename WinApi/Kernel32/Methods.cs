@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using WinApi.User32;
 
 namespace WinApi.Kernel32
 {
@@ -185,6 +186,18 @@ namespace WinApi.Kernel32
 
         [DllImport(LibraryName, ExactSpelling = true)]
         public static extern uint GetCurrentProcessorNumber();
+
+        [DllImport(LibraryName, ExactSpelling = true)]
+        public static extern IntPtr OpenProcess(ProcessAccessFlags processAccess, bool bInheritHandle, int processId);
+
+        [DllImport(LibraryName, ExactSpelling = true)]
+        public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress,
+            IntPtr lpParameter, uint dwCreationFlags, out IntPtr lpThreadId);
+
+        [DllImport(LibraryName, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetProcessTimes(IntPtr hProcess, out FileTime lpCreationTime, out FileTime lpExitTime, out FileTime lpKernelTime,
+   out FileTime lpUserTime);
 
         #endregion
 
